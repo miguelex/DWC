@@ -1,0 +1,11 @@
+// forma antigua
+//@import 'base/variables';
+//@import 'contenido/contenido';
+
+// forma moderna
+
+@use 'base';
+@use 'layout';
+
+
+

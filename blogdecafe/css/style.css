@@ -35,6 +35,10 @@ a {
     text-decoration: none;
 }
 
+a:hover {
+    color: var(--primario);
+}
+
 h1, h2,h3,h4 {
     font-family: var(--fuenteHeading);
 }
@@ -182,8 +186,18 @@ img {
     background-color: var(--negro);
 }
 
+.boton--primario:hover {
+    background-color: var(--primario);
+    color: var(--negro);
+}
+
 .boton--secundario {
     background-color: var(--primario);
+}
+
+.boton--secundario:hover {
+    background-color: var(--negro);
+    color: var(--blanco);
 }
 
 .cursos {
