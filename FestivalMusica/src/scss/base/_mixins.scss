@@ -1,6 +1,36 @@
-@mixin heading {
+@use 'variables' as v;
+
+/*@mixin heading($color: blue) {
     text-transform: uppercase;
     font-size: 2.4rem;
-    color: black;
-    letter-spacing: 1rem;
+    color: $color;
+    letter-spacing: 1px;
+}*/
+@mixin telefono {
+    @media (min-width: v.$telefono){
+        @content;
+    }
+}
+@mixin tablet {
+    @media (min-width: v.$tablet){
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: v.$desktop){
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: v.$desktopXL){
+        @content;
+    }
+}
+
+@mixin grid($columnas, $espaciado) {
+    display: grid;
+    grid-template-columns: repeat($columnas, 1fr);
+    gap: $espaciado;
 }
