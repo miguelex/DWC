@@ -53,15 +53,17 @@ incluirTemplate('header', $inicio = true);
                 <p class="precio">$3.000.000</p>
                 <ul class="iconos-caracteristicas">
                     <li>
-                        <img src="build/img/icono_wc.svg" alt="icono wc" loading="lazy" />
+                        <img class="icono" src="build/img/icono_wc.svg" alt="icono wc" loading="lazy" />
                         <p>3</p>
                     </li>
                     <li>
-                        <img src="build/img/icono_estacionamiento.svg" alt="icono estacionamiento" loading="lazy" />
+                        <img class="icono" src="build/img/icono_estacionamiento.svg" alt="icono estacionamiento"
+                            loading="lazy" />
                         <p>3</p>
                     </li>
                     <li>
-                        <img src="build/img/icono_dormitorio.svg" alt="icono habitaciones" loading="lazy" />
+                        <img class="icono" src="build/img/icono_dormitorio.svg" alt="icono habitaciones"
+                            loading="lazy" />
                         <p>4</p>
                     </li>
                 </ul>
@@ -86,15 +88,17 @@ incluirTemplate('header', $inicio = true);
                 <p class="precio">$3.000.000</p>
                 <ul class="iconos-caracteristicas">
                     <li>
-                        <img src="build/img/icono_wc.svg" alt="icono wc" loading="lazy" />
+                        <img class="icono" src="build/img/icono_wc.svg" alt="icono wc" loading="lazy" />
                         <p>3</p>
                     </li>
                     <li>
-                        <img src="build/img/icono_estacionamiento.svg" alt="icono estacionamiento" loading="lazy" />
+                        <img class="icono" src="build/img/icono_estacionamiento.svg" alt="icono estacionamiento"
+                            loading="lazy" />
                         <p>3</p>
                     </li>
                     <li>
-                        <img src="build/img/icono_dormitorio.svg" alt="icono habitaciones" loading="lazy" />
+                        <img class="icono" src="build/img/icono_dormitorio.svg" alt="icono habitaciones"
+                            loading="lazy" />
                         <p>4</p>
                     </li>
                 </ul>
@@ -119,15 +123,17 @@ incluirTemplate('header', $inicio = true);
                 <p class="precio">$3.000.000</p>
                 <ul class="iconos-caracteristicas">
                     <li>
-                        <img src="build/img/icono_wc.svg" alt="icono wc" loading="lazy" />
+                        <img class="icono" src="build/img/icono_wc.svg" alt="icono wc" loading="lazy" />
                         <p>3</p>
                     </li>
                     <li>
-                        <img src="build/img/icono_estacionamiento.svg" alt="icono estacionamiento" loading="lazy" />
+                        <img class="icono" src="build/img/icono_estacionamiento.svg" alt="icono estacionamiento"
+                            loading="lazy" />
                         <p>3</p>
                     </li>
                     <li>
-                        <img src="build/img/icono_dormitorio.svg" alt="icono habitaciones" loading="lazy" />
+                        <img class="icono" src="build/img/icono_dormitorio.svg" alt="icono habitaciones"
+                            loading="lazy" />
                         <p>4</p>
                     </li>
                 </ul>

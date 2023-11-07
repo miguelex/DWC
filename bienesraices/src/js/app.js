@@ -4,16 +4,39 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function darkMode() {
+  const themeColor = window.matchMedia("(prefers-color-scheme: dark)");
+  if (themeColor.matches) {
+    document.body.classList.add("dark-mode");
+  } else {
+    document.body.classList.remove("dark-mode");
+  }
+
+  themeColor.addEventListener("change", function () {
+    if (themeColor.matches) {
+      document.body.classList.add("dark-mode");
+    } else {
+      document.body.classList.remove("dark-mode");
+    }
+  });
+
   const botonDarkMode = document.querySelector(".dark-mode-boton");
   botonDarkMode.addEventListener("click", function () {
     document.body.classList.toggle("dark-mode");
-    botonDarkMode.classList.toggle("active");
-    /*if (document.body.classList.contains('dark-mode')) {
-            localStorage.setItem('dark-mode', 'true');
-        } else {
-            localStorage.setItem('dark-mode', 'false');
-        }*/
+
+    //Para que el modo elegido se quede guardado en local-storage
+    if (document.body.classList.contains("dark-mode")) {
+      localStorage.setItem("modo-oscuro", "true");
+    } else {
+      localStorage.setItem("modo-oscuro", "false");
+    }
   });
+
+  //Obtenemos el modo del color actual
+  if (localStorage.getItem("modo-oscuro") === "true") {
+    document.body.classList.add("dark-mode");
+  } else {
+    document.body.classList.remove("dark-mode");
+  }
 }
 function eventListeners() {
   const mobileMenu = document.querySelector(".mobile-menu");
