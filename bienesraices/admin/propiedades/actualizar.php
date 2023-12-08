@@ -80,10 +80,6 @@ if($_SERVER['REQUEST_METHOD']=== 'POST'){
         $errores[] = "Debes añadir un vendedor";
     }
 
-    if(!$imagen['name'] || $imagen['error']){
-        $errores[] = "La imagen es obligatoria";
-    }
-
     // Validar por tamaño (1mb máximo)
     $medida = 1000 * 1000;
 
@@ -100,20 +96,29 @@ if($_SERVER['REQUEST_METHOD']=== 'POST'){
             mkdir($carpetaImagenes);
         }
 
-        // Generar nombre único
-        $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
+        $nombreImagen = '';
 
-        // subir la imagen
-        move_uploaded_file($imagen['tmp_name'], $carpetaImagenes.$nombreImagen);
+        if($imagen['name']){
+            // Eliminar la imagen previa
+            unlink($carpetaImagenes . $imagenPropiedad);
+        
+            // Generar nombre único
+            $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
+    
+            // subir la imagen
+            move_uploaded_file($imagen['tmp_name'], $carpetaImagenes.$nombreImagen);
+        } else {
+            $nombreImagen = $imagenPropiedad;
+        }
 
         // Insertar en BD
-        $query = "INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamientos, creado, vendedores_id) VALUES ('$titulo', '$precio', '$nombreImagen', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$creado', '$vendedor')";
+        $query = "UPDATE propiedades SET titulo  = '$titulo', precio  = '$precio', imagen = '$nombreImagen', descripcion  = '$descripcion', habitaciones  = $habitaciones, wc  = $wc, estacionamientos  = $estacionamiento, vendedores_id  = $vendedor WHERE id = $id";
 
         $resultado = mysqli_query($db, $query);
 
         if ($resultado) {
             // Redireccionar al usuario
-            header('Location: /admin?resultado=1');
+            header('Location: /admin?resultado=2');
         }
     }    
 
@@ -136,7 +141,7 @@ incluirTemplate('header');
     </div>
     <?php endforeach; ?>
 
-    <form class="formulario" method="POST" action="/admin/propiedades/crear.php" enctype="multipart/form-data">
+    <form class="formulario" method="POST" enctype="multipart/form-data">
         <fieldset>
             <legend>Información general</legend>
             <label for="titulo">Titulo: </label>
