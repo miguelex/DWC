@@ -1,5 +1,12 @@
 <?php
 
+require '../../includes/funciones.php';
+$auth = estaAutenticado();
+
+if(!$auth){
+    header('Location: /');
+}
+
 //Validar id valido
 $id = $_GET['id'];
 $id = filter_var($id, FILTER_VALIDATE_INT);
@@ -123,9 +130,6 @@ if($_SERVER['REQUEST_METHOD']=== 'POST'){
     }    
 
 }
-
-
-require '../../includes/funciones.php';
 
 incluirTemplate('header');
 ?>
