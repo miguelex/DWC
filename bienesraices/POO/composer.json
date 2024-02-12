@@ -1,0 +1,17 @@
+{
+    "name": "migue/poo",
+    "description": "Creando un proyecto con POO",
+    "type": "project",
+    "authors": [
+        {
+            "name": "miguelex",
+            "email": "miguelexepg@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "App\\": "./classes"
+        }
+    }
+}

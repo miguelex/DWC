@@ -1,9 +1,7 @@
 <?php
-    require 'includes/funciones.php';
+    require 'includes/app.php';
     
     // Importar la conexión
-
-    require 'includes/config/database.php';
     $db = conectarDB();
 
     $id = $_GET['id'];
