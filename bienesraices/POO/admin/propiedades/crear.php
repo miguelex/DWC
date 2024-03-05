@@ -1,5 +1,8 @@
 <?php
-require '../../includes/funciones.php';
+require '../../includes/app.php';
+
+use App\Propiedad; 
+
 $auth = estaAutenticado();
 
 if(!$auth){
@@ -7,7 +10,7 @@ if(!$auth){
 }
 
 //Base de datos
-require '../../includes/config/database.php';
+
 $db = conectarDB();
 
 // Consulta para obtener vendedores
