@@ -3,6 +3,10 @@
 namespace App;
 
 class Propiedad {
+
+    // base de datos
+
+    protected static $db; 
     public $id;
     public $titulo;
     public $precio;
@@ -25,5 +29,22 @@ class Propiedad {
         $this->estacionamiento = $args['estacionamiento'] ?? '';
         $this->creado = date('Y-m-d');
         $this->vendedorId = $args['vendedorId'] ?? '';
+    }
+
+    public function guardar(){
+        // Insertar en BD
+        $query = "INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamientos, creado, vendedores_id) 
+                VALUES ('$this->titulo', '$this->precio', '$this->imagen', '$this->descripcion', '$this->habitaciones', '$this->wc', 
+                '$this->estacionamiento', '$this->creado', '$this->vendedorId')";
+
+        $resultado = self::$db->query($query);
+
+        debuguear($resultado);
+    }
+
+    // Definir la conexión a la base de datos
+
+    public static function setDB($dataBase){
+        self::$db = $dataBase;
     }
 }
