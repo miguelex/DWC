@@ -1,17 +1,13 @@
 <?php
 
-require '../includes/funciones.php';
+require '../includes/app.php';
 estaAutenticado();
 
-// Importar la conexion
-require '../includes/config/database.php';
-$db = conectarDB();
+use App\Propiedad;
 
-//Escribir el Query
-$query = "SELECT * FROM propiedades";
+// Metodo para obtener las propiedades
 
-// Consultar la BD
-$resultadoConsulta = mysqli_query($db, $query);
+$propiedades = Propiedad::all();
 
 $resultado = $_GET['resultado'] ?? null;
 

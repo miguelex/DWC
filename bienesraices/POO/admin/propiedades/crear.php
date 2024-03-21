@@ -2,6 +2,7 @@
 require '../../includes/app.php';
 
 use App\Propiedad; 
+use Intervention\Image\ImageManagerStatic as Image;
 
 estaAutenticado();
 
@@ -16,7 +17,7 @@ $result = mysqli_query($db, $query);
 
 // Arreglo con mensajes de errores
 
-$errores = [];
+$errores = Propiedad::getErrores();
 
 $titulo = '';
 $precio = '';
@@ -30,75 +31,32 @@ if($_SERVER['REQUEST_METHOD']=== 'POST'){
     
     $propiedad = new Propiedad($_POST);
 
-    $propiedad->guardar();    
+    // Generar nombre único
+    $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
 
-    $titulo = mysqli_real_escape_string($db,$_POST['titulo']);
-    $precio = mysqli_real_escape_string($db,$_POST['precio']);
-    $descripcion = mysqli_real_escape_string($db,$_POST['descripcion']);
-    $habitaciones = mysqli_real_escape_string($db,$_POST['habitaciones']);
-    $wc = mysqli_real_escape_string($db,$_POST['wc']);
-    $estacionamiento = mysqli_real_escape_string($db,$_POST['estacionamiento']);
-    $vendedor = mysqli_real_escape_string($db,$_POST['vendedor']);
-    $creado = date('Y-m-d');
-
-    // Asignar files hacia una variable
-    $imagen = $_FILES['imagen'];
-
-    if(!$titulo){
-        $errores[] = "Debes añadir un titulo";
+    // Realiza el resize a la imagen
+    
+    if($_FILES['imagen']['tmp_name']){
+        $image = Image::make($_FILES['imagen']['tmp_name'])->fit(800,600);
+        $propiedad->setImagen($nombreImagen);
     }
 
-    if(!$precio){
-        $errores[] = "Debes añadir un precio";
-    }
+    $errores = $propiedad->validar();    
 
-    if(strlen($descripcion) < 50){
-        $errores[] = "Debes añadir una descripción y debe tener al menos 50 caracteres";
-    }
+    if(empty($errores)){         
 
-    if(!$habitaciones){
-        $errores[] = "Debes añadir un número de habitaciones";
-    }
+        // Crear la carpeta para subir imagenes
 
-    if(!$wc){
-        $errores[] = "Debes añadir un número de baños";
-    }
-
-    if(!$estacionamiento){
-        $errores[] = "Debes añadir un número de estacionamientos";
-    }
-
-    if(!$vendedor){
-        $errores[] = "Debes añadir un vendedor";
-    }
-
-    if(!$imagen['name'] || $imagen['error']){
-        $errores[] = "La imagen es obligatoria";
-    }
-
-    // Validar por tamaño (1mb máximo)
-    $medida = 1000 * 1000;
-
-    if($imagen['size'] > $medida){
-        $errores[] = "La imagen es muy pesada";
-    }
-
-    if(empty($errores)){
-
-        // Crear carpeta
-        $carpetaImagenes = '../../imagenes/';
-
-        if(!is_dir($carpetaImagenes)){
-            mkdir($carpetaImagenes);
+        if(!is_dir(CARPETA_IMAGENES)){
+            mkdir(CARPETA_IMAGENES);
         }
 
-        // Generar nombre único
-        $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
+        // Guardar la imagen en el servidor
+        $image->save(CARPETA_IMAGENES . $nombreImagen);
 
-        // subir la imagen
-        move_uploaded_file($imagen['tmp_name'], $carpetaImagenes.$nombreImagen);
+        // Guardar en BD
 
-        $resultado = mysqli_query($db, $query);
+        $resultado = $propiedad->guardar();   
 
         if ($resultado) {
             // Redireccionar al usuario
