@@ -34,7 +34,7 @@ class Propiedad {
         $this->wc = $args['wc'] ?? '';
         $this->estacionamientos = $args['estacionamiento'] ?? '';
         $this->creado = date('Y-m-d');
-        $this->vendedores_id = $args['vendedorId'] ?? '';
+        $this->vendedores_id = $args['vendedorId'] ?? 1;
     }
 
     // Definir la conexión a la base de datos
@@ -148,6 +148,15 @@ class Propiedad {
         return $resultado;
     }
 
+    // Busca un registro
+
+    public static function find($id){
+        $query = "SELECT * FROM propiedades WHERE id = ${id}";
+        $resultado = self::consultarSQL($query);
+
+        return array_shift($resultado);
+    }
+
     public static function consultarSQL ($query){
 
         // Consultar la base de datos
@@ -177,5 +186,15 @@ class Propiedad {
         }
 
         return $objeto;
+    }
+
+    // Sincroniza el objeto en memoria con los cambios realizados por el usuario
+
+    public function sincronizar($args = []){
+        foreach ($args as $key => $value) {
+            if(property_exists($this, $key) && !is_null($value)){
+                $this->$key = $value;
+            }
+        }
     }
 }
