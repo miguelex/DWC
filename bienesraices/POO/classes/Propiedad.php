@@ -26,7 +26,7 @@ class Propiedad {
 
     public function __construct($args = []){
         $this->id = $args['id'] ?? null;
-        $this->titulo = $args['titulo'] ?? '';
+        $this->titulo = $args['titulo'] ?? null;
         $this->precio = $args['precio'] ?? '';
         $this->imagen = $args['imagen'] ?? '';
         $this->descripcion = $args['descripcion'] ?? '';
@@ -43,15 +43,21 @@ class Propiedad {
         self::$db = $dataBase;
     }
 
-    public function guardar(){
+    public function guardar() {
+        if(!is_null($this->id)){
+            // Actualizar
+            $this->actualizar();
+        } else {
+            // Crear un nuevo registro
+            $this->crear();
+        }
+    }
+
+    public function crear(){
 
         // Sanitizar los datos
         $atributos = $this->sanitizarAtributos();
 
-        $string = join(', ', array_map(function($p){
-            return "$p = '{$this->$p}'";
-        }, array_keys($atributos)));
-        
         // Insertar en BD
         $query = "INSERT INTO propiedades ( ";
         $query .= join(', ', array_keys($atributos));
@@ -61,7 +67,45 @@ class Propiedad {
         
         $resultado = self::$db->query($query);
 
-        return $resultado;
+        if ($resultado) {
+            // Redireccionar al usuario
+            header('Location: /admin?resultado=1');
+        }
+    }
+
+    public function actualizar(){
+        // Sanitizar los datos
+        $atributos = $this->sanitizarAtributos();
+
+        $valores = [];
+        foreach ($atributos as $key => $value) {
+            $valores[] = "$key = '$value'";
+        }
+
+        // Insertar en BD
+        $query = "UPDATE propiedades SET ";
+        $query .= join(', ', $valores);
+        $query .= " WHERE id = '" . self::$db->escape_string($this->id) . "' ";
+        $query .= " LIMIT 1;";
+
+        $resultado = self::$db->query($query);
+
+        if ($resultado) {
+            // Redireccionar al usuario
+            header('Location: /admin?resultado=2');
+        }
+    }
+
+    // Eliminar una propiedad
+
+    public function eliminar(){
+        $query = "DELETE FROM propiedades WHERE id = " . self::$db->escape_string($this->id) . " LIMIT 1";
+        $resultado = self::$db->query($query);
+
+        if($resultado){
+            $this->borrarImagen();
+            header('Location: /admin?resultado=3');
+        }
     }
 
     public function atributos(){
@@ -86,13 +130,22 @@ class Propiedad {
 
     public function setImagen($imagen){
         // Eliminar la imagen previa
-        /*if(!is_null($this->id)){
+        if(!is_null($this->id)){
             $this->borrarImagen();
-        }*/
+        }
 
         // Asignar al atributo de imagen el nombre de la imagen
         if($imagen){
             $this->imagen = $imagen;
+        }
+    }
+
+    // Eliminar imagen
+
+    public function borrarImagen(){
+        $existeArchivo = file_exists(CARPETA_IMAGENES . $this->imagen);
+        if($existeArchivo){
+            unlink(CARPETA_IMAGENES . $this->imagen);
         }
     }
 

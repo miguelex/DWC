@@ -50,12 +50,7 @@ if($_SERVER['REQUEST_METHOD']=== 'POST'){
 
         // Guardar en BD
 
-        $resultado = $propiedad->guardar();   
-
-        if ($resultado) {
-            // Redireccionar al usuario
-            header('Location: /admin?resultado=1');
-        }
+        $propiedad->guardar();   
     }    
 
 }

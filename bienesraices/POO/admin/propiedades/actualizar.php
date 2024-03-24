@@ -1,6 +1,7 @@
 <?php
 
 use App\Propiedad;
+use Intervention\Image\ImageManagerStatic as Image;
 
 require '../../includes/app.php';
 
@@ -25,7 +26,7 @@ $result = mysqli_query($db, $query);
 
 // Arreglo con mensajes de errores
 
-$errores = [];
+$errores = Propiedad::getErrores();
 
 
 if($_SERVER['REQUEST_METHOD']=== 'POST'){
@@ -35,79 +36,24 @@ if($_SERVER['REQUEST_METHOD']=== 'POST'){
 
     $propiedad->sincronizar($args);
 
-    debuguear($propiedad);
+    // Validacion
+    $errores = $propiedad->validar();    
 
-    // Asignar files hacia una variable
-    $imagen = $_FILES['imagen'];
+    //Subida de imagenes
 
-    if(!$titulo){
-        $errores[] = "Debes añadir un titulo";
-    }
+    // Generar nombre único
+    $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
 
-    if(!$precio){
-        $errores[] = "Debes añadir un precio";
-    }
-
-    if(strlen($descripcion) < 50){
-        $errores[] = "Debes añadir una descripción y debe tener al menos 50 caracteres";
-    }
-
-    if(!$habitaciones){
-        $errores[] = "Debes añadir un número de habitaciones";
-    }
-
-    if(!$wc){
-        $errores[] = "Debes añadir un número de baños";
-    }
-
-    if(!$estacionamiento){
-        $errores[] = "Debes añadir un número de estacionamientos";
-    }
-
-    if(!$vendedor){
-        $errores[] = "Debes añadir un vendedor";
-    }
-
-    // Validar por tamaño (1mb máximo)
-    $medida = 1000 * 1000;
-
-    if($imagen['size'] > $medida){
-        $errores[] = "La imagen es muy pesada";
+    // Realiza el resize a la imagen
+    
+    if($_FILES['propiedad']['tmp_name']['imagen']){
+        $image = Image::make($_FILES['propiedad']['tmp_name']['imagen'])->fit(800,600);
+        $propiedad->setImagen($nombreImagen);
     }
 
     if(empty($errores)){
-
-        // Crear carpeta
-        $carpetaImagenes = '../../imagenes/';
-
-        if(!is_dir($carpetaImagenes)){
-            mkdir($carpetaImagenes);
-        }
-
-        $nombreImagen = '';
-
-        if($imagen['name']){
-            // Eliminar la imagen previa
-            unlink($carpetaImagenes . $imagenPropiedad);
-        
-            // Generar nombre único
-            $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
-    
-            // subir la imagen
-            move_uploaded_file($imagen['tmp_name'], $carpetaImagenes.$nombreImagen);
-        } else {
-            $nombreImagen = $imagenPropiedad;
-        }
-
-        // Insertar en BD
-        $query = "UPDATE propiedades SET titulo  = '$titulo', precio  = '$precio', imagen = '$nombreImagen', descripcion  = '$descripcion', habitaciones  = $habitaciones, wc  = $wc, estacionamientos  = $estacionamiento, vendedores_id  = $vendedor WHERE id = $id";
-
-        $resultado = mysqli_query($db, $query);
-
-        if ($resultado) {
-            // Redireccionar al usuario
-            header('Location: /admin?resultado=2');
-        }
+        $image->save(CARPETA_IMAGENES . $nombreImagen);
+        $resultado = $propiedad->guardar();
     }    
 
 }
