@@ -19,7 +19,7 @@
 @mixin grid($columnas, $espaciado ) {
     display: grid;
     gap: $espaciado;
-    grid-template-columns: repeat($columnas, 1fr);
+    grid-template-columns: repeat($columnas, minmax(0, 1fr));
 }
 
 @mixin boton($bgColor, $display) {
