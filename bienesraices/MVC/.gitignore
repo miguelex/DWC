@@ -3,3 +3,5 @@ public/build/img
 src/img
 vendor
 public/imagenes
+.env
+.gitignore

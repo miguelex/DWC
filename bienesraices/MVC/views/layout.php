@@ -37,11 +37,11 @@
                     <img class="dark-mode-boton" src="/build/img/dark-mode.svg" alt="boton dark mode" />
                     <nav class="navegacion">
                         <a href="/nosotros">Nosotros</a>
-                        <a href="/anuncios">Anuncios</a>
+                        <a href="/propiedades">Anuncios</a>
                         <a href="/blog">Blog</a>
                         <a href="/contacto">Contacto</a>
                         <?php if($auth) : ?>
-                            <a href="/cerrar-sesion">Cerrar Sesion</a>
+                            <a href="/logout">Cerrar Sesion</a>
                         <?php endif; ?>
                     </nav>
                 </div>
@@ -60,7 +60,7 @@
     <div class="contenedor contenedor-footer">
         <nav class="navegacion">
             <a href="/nosotros">Nosotros</a>
-            <a href="/anuncios">Anuncios</a>
+            <a href="/propiedades">Anuncios</a>
             <a href="/blog">Blog</a>
             <a href="/contacto">Contacto</a>
         </nav>
