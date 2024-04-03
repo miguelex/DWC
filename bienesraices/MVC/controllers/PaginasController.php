@@ -3,6 +3,8 @@
     namespace Controllers;
     use MVC\Router;
     use Model\Propiedad;
+    use Model\Blog;
+    use Model\Vendedor;
     use PHPMailer\PHPMailer\PHPMailer;
     use Dotenv\Dotenv;
 
@@ -12,10 +14,15 @@
         public static function index(Router $router) {
 
             $propiedades = Propiedad::get(3);
+            $blog = Blog::reversed_get(2, 'escrito');
+            $vendedores = Vendedor::all();
+            
             $inicio = true;
             $router->render('paginas/index', [
                 'propiedades' => $propiedades,
-                'inicio' => $inicio
+                'inicio' => $inicio,
+                'blog' => $blog,
+                'vendedores' => $vendedores
             ]);
         }
 
@@ -43,14 +50,22 @@
         }
 
         public static function blog(Router $router) {
+            $blog = Blog::all();
+            $vendedores = Vendedor::all();
+            
             $router->render('paginas/blog', [
-                
+                'blog' => $blog,
+                'vendedores' => $vendedores
             ]);
         }
 
         public static function entrada(Router $router) {
+            $id = validarORedireccionar('/blog');
+            $blog = Blog::find($id);
+            $vendedor = Vendedor::find($blog->vendedorId);
             $router->render('paginas/entrada', [
-                
+                'blog' => $blog,
+                'vendedor' => $vendedor
             ]);
         }
 

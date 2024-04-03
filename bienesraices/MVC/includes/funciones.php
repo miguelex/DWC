@@ -2,7 +2,9 @@
 
 define('TEMPLATES_URL', __DIR__.'/templates');
 define('FUNCIONES_URL', __DIR__.'funciones.php');
-define('CARPETA_IMAGENES', $_SERVER['DOCUMENT_ROOT'] . '/imagenes/');
+define('CARPETA_PROPIEDADES', $_SERVER['DOCUMENT_ROOT'] . '/imagenes/propiedades/');
+define('CARPETA_VENDEDORES', $_SERVER['DOCUMENT_ROOT'] . '/imagenes/vendedores/');
+define('CARPETA_BLOG', $_SERVER['DOCUMENT_ROOT'] . '/imagenes/blog/');
 
 function incluirTemplate(string $nombre, bool $inicio = false)
 {
@@ -39,7 +41,7 @@ function s($html): string
 
 function validarTipoContenido($tipo): bool
 {
-    $tipos = ['vendedor', 'propiedad'];
+    $tipos = ['vendedor', 'propiedad', 'blog'];
     
     return in_array($tipo, $tipos);
 }

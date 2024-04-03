@@ -22,8 +22,18 @@
 
 .informacion-meta{
     span {
-            color: $amarillo;
+            color: $primario;
         }
+}
+
+.avatar {
+    width: 5%;
+    border-color: $primario;
+    border-width: .2rem;
+    border-style: solid;
+    aspect-ratio: 1 / 1;
+    display: inline;
+    margin-left: 1rem;
 }
 
 .texto-entrada {
@@ -46,7 +56,7 @@
             display: block;
             width: 15rem;
             height: .5rem;
-            background-color: $verde;
+            background-color: $primario;
             margin-top: 1rem;
         }
     }

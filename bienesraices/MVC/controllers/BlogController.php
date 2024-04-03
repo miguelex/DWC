@@ -2,20 +2,20 @@
 
 namespace Controllers;
 use MVC\Router;
-use Model\Propiedad;
+use Model\Blog;
 use Model\Vendedor;
 use Intervention\Image\ImageManagerStatic as Image;
 
-class PropiedadController {
 
-    public static function index (Router $router)
-    {
-        $propiedades = Propiedad::all();
+class BlogController {
+
+    public static function index(Router $router) {
+        $blog = Blog::all();
         $vendedores = Vendedor::all();
         $resultado = $_GET['resultado'] ?? null;
-        
-        $router->render('propiedades/admin', [
-            'propiedades' => $propiedades,
+
+        $router->render('blog/index', [
+            'entradas' => $blog,
             'vendedores' => $vendedores,
             'resultado' => $resultado
         ]);
@@ -23,47 +23,47 @@ class PropiedadController {
 
     public static function crear (Router $router)
     {
-        $propiedad = new Propiedad;
+        $blog = new Blog;
         $vendedores = Vendedor::all();
 
         // Arreglo con mensajes de errores
 
-        $errores = Propiedad::getErrores();
+        $errores = Blog::getErrores();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $propiedad = new Propiedad($_POST['propiedad']);
+            $blog = new Blog($_POST['blog']);
 
             // Generar nombre único
             $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
 
             // Realiza el resize a la imagen
 
-            if ($_FILES['propiedad']['tmp_name']['imagen']) {
-                $image = Image::make($_FILES['propiedad']['tmp_name']['imagen'])->fit(800, 600);
-                $propiedad->setImagen($nombreImagen, CARPETA_PROPIEDADES);
+            if ($_FILES['blog']['tmp_name']['imagen']) {
+                $image = Image::make($_FILES['blog']['tmp_name']['imagen'])->fit(800, 600);
+                $blog->setImagen($nombreImagen, CARPETA_BLOG);
             }
 
-            $errores = $propiedad->validar();
+            $errores = $blog->validar();
 
             if (empty($errores)) {
 
                 // Crear la carpeta para subir imagenes
 
-                if (!is_dir(CARPETA_PROPIEDADES)) {
-                    mkdir(CARPETA_PROPIEDADES);
+                if (!is_dir(CARPETA_BLOG)) {
+                    mkdir(CARPETA_BLOG);
                 }
 
                 // Guardar la imagen en el servidor
-                $image->save(CARPETA_PROPIEDADES . $nombreImagen);
+                $image->save(CARPETA_BLOG . $nombreImagen);
 
                 // Guardar en BD
 
-                $propiedad->guardar();
+                $blog->guardar();
             }
         }
 
-        $router->render('propiedades/crear', [
-            'propiedad' => $propiedad,
+        $router->render('blog/crear', [
+            'blog' => $blog,
             'vendedores' => $vendedores,
             'errores' => $errores
         ]);
@@ -73,20 +73,20 @@ class PropiedadController {
     {
         $id = validarORedireccionar('/admin');
 
-        $propiedad = Propiedad::find($id);
+        $blog = Blog::find($id);
         $vendedores = Vendedor::all();
 
-        $errores = Propiedad::getErrores();
+        $errores = Blog::getErrores();
 
         if($_SERVER['REQUEST_METHOD']=== 'POST'){
             
             // Asignar los valores
-            $args = $_POST['propiedad'];
+            $args = $_POST['blog'];
         
-            $propiedad->sincronizar($args);
+            $blog->sincronizar($args);
         
             // Validacion
-            $errores = $propiedad->validar();    
+            $errores = $blog->validar();    
         
             //Subida de imagenes
         
@@ -95,23 +95,23 @@ class PropiedadController {
         
             // Realiza el resize a la imagen
             
-            if($_FILES['propiedad']['tmp_name']['imagen']){
-                $image = Image::make($_FILES['propiedad']['tmp_name']['imagen'])->fit(800,600);
-                $propiedad->setImagen($nombreImagen, CARPETA_PROPIEDADES);
+            if($_FILES['blog']['tmp_name']['imagen']){
+                $image = Image::make($_FILES['blog']['tmp_name']['imagen'])->fit(800,600);
+                $blog->setImagen($nombreImagen, CARPETA_BLOG);
             }
         
             if(empty($errores)){
-                if($_FILES['propiedad']['tmp_name']['imagen']) {
-                    $image->save(CARPETA_PROPIEDADES . $nombreImagen);
+                if($_FILES['blog']['tmp_name']['imagen']) {
+                    $image->save(CARPETA_BLOG . $nombreImagen);
                 }
                 
-                $propiedad->guardar();
+                $blog->guardar();
             }    
         
         }
 
-        $router->render('propiedades/actualizar', [
-            'propiedad' => $propiedad,
+        $router->render('blog/actualizar', [
+            'blog' => $blog,
             'errores' => $errores,
             'vendedores' => $vendedores
         ]);
@@ -128,8 +128,8 @@ class PropiedadController {
                 $tipo = $_POST['tipo'];
         
                 if (validarTipoContenido($tipo)){
-                    $propiedad = Propiedad::find($id);
-                    $propiedad->eliminar(CARPETA_PROPIEDADES);
+                    $blog = Blog::find($id);
+                    $blog->eliminar(CARPETA_BLOG);
                 }
             }
         }

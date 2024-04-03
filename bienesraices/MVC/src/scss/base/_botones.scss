@@ -1,24 +1,33 @@
 .boton-amarillo {
-    @include boton($amarillo, inline-block);
+    @include boton($primario, inline-block);
 }
 
 .boton-amarillo-block {
-    @include boton($amarillo, block);
+    @include boton($primario, block);
 }
 
 .boton-verde {
-    @include boton($verde, inline-block);
+    @include boton($primario, inline-block);
 }
 
 .boton-verde-block {
-    @include boton($verde, block);
+    @include boton($primario, block);
 }
 
 .boton-rojo {
-    @include boton($rojo, inline-block);
+    @include boton($eliminar, inline-block);
 }
 
 .boton-rojo-block {
-    @include boton($rojo, block);
+    @include boton($eliminar, block);
+    width: 100%;
+}
+
+.boton-edit {
+    @include boton($editar, inline-block);
+}
+
+.boton-edit-block {
+    @include boton($editar, block);
     width: 100%;
 }

@@ -1,6 +1,6 @@
 <main class="contenedor seccion contenido-centrado">
     <h1><?php echo $propiedad->titulo; ?></h1>
-    <img loading="lazy" src="imagenes/<?php echo $propiedad->imagen; ?>" alt="anuncio" />
+    <img loading="lazy" src="imagenes/propiedades/<?php echo $propiedad->imagen; ?>" alt="anuncio" />
 
     <div class="resumen-propiedad">
         <p class="precio"><?php echo $propiedad->precio; ?></p>

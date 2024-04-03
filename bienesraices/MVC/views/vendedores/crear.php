@@ -8,7 +8,7 @@
     </div>
     <?php endforeach; ?>
 
-    <form class="formulario" method="POST">
+    <form class="formulario" method="POST"  enctype="multipart/form-data">
         <?php include __DIR__.'/formulario.php'; ?>
         <input type="submit" value="Añadir Vendedor" class="boton boton-verde">
     </form>

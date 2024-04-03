@@ -14,7 +14,7 @@
         border: 1px solid $grisOscuro;
 
         .precio{
-            color: $verde;
+            color: $primario;
         }
 
         .icono {
@@ -39,4 +39,17 @@
             color: $blanco;
         }
     }
+
+    .propiedades {
+        color: $blanco;
+    }   
+
+    .boton-edit-block{
+        color: $negro;
+    }
+
+    .boton-rojo-block {
+        color: $negro;
+    }
+    
 }

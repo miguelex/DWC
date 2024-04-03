@@ -7,7 +7,7 @@ $db = conectarDB();
 
 // Crear un email y password
 
-$email = "correo@correo.com";
+$email = "migue@correo.com";
 $password = "123456";
 
 $passwordHash = password_hash($password, PASSWORD_DEFAULT);

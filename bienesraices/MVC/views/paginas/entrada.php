@@ -1,21 +1,24 @@
+<?php 
+    $fecha = $blog->escrito;
+    $fecha = date("d/m/Y", strtotime($fecha));
+    $autor = $vendedor->nombre. ' ' . $vendedor->apellidos;
+?>
+
 <main class="contenedor seccion contenido-centrado">
-    <h1>Guia para la decoración del hogar</h1>
+    <h1><?php echo $blog->titulo ?></h1>
     <picture>
-        <source srcset="build/img/destacada2.webp" type="image/webp" />
-        <source srcset="build/img/destacada2.jpg" type="image/jpeg" />
-        <img loading="lazy" src="build/img/destacada2.jpg" alt="anuncio" />
+        <source srcset="imagenes/blog/<?php echo $blog->imagen; ?>" type="image/webp" />
+        <source srcset="imagenes/blog/<?php echo $blog->imagen; ?>" type="image/jpeg" />
+        <img loading="lazy" src="imagenes/blog/<?php echo $blog->imagen; ?>" alt="anuncio" />
     </picture>
 
     <p class="informacion-meta">
-        Escrito el: <span>02/07/2023</span> por: <span>Admin</span>
+        Escrito el: <span><?php echo $fecha; ?></span> por: <span><?php echo $autor; ?></span><img loading="lazy" class = "avatar" src="imagenes/vendedores/<?php echo $vendedor->imagen; ?>" alt="avatar" />
     </p>
 
     <div class="resumen-propiedad">
         <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam quasi
-            beatae quo dolor eos? Consectetur similique quidem omnis ab velit
-            voluptatibus, incidunt consequuntur. Explicabo sit soluta officiis
-            corrupti dolor numquam!
+        <?php echo $blog->texto; ?>
         </p>
     </div>
 </main>

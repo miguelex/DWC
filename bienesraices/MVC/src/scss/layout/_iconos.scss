@@ -8,8 +8,10 @@
     text-align: center;
     img {
         height: 10rem;
+        filter: brightness(0) saturate(100%) invert(81%) sepia(12%) saturate(374%) hue-rotate(196deg) brightness(90%) contrast(89%);
     }
     h3{
         text-transform: uppercase;
     }
+    color: $primario;
 }

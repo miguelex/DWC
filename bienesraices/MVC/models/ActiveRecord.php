@@ -76,12 +76,12 @@
 
     // Eliminar un registro
 
-    public function eliminar(){
+    public function eliminar($carpeta){
         $query = "DELETE FROM ". static::$tabla." WHERE id = " . self::$db->escape_string($this->id) . " LIMIT 1";
         $resultado = self::$db->query($query);
 
         if($resultado){
-            $this->borrarImagen();
+            $this->borrarImagen($carpeta);
             header('Location: /admin?resultado=3');
         }
     }
@@ -106,10 +106,10 @@
 
     //subir Imagen
 
-    public function setImagen($imagen){
+    public function setImagen($imagen, $carpeta){
         // Eliminar la imagen previa
         if(!is_null($this->id)){
-            $this->borrarImagen();
+            $this->borrarImagen($carpeta);
         }
 
         // Asignar al atributo de imagen el nombre de la imagen
@@ -120,10 +120,10 @@
 
     // Eliminar imagen
 
-    public function borrarImagen(){
-        $existeArchivo = file_exists(CARPETA_IMAGENES . $this->imagen);
+    public function borrarImagen($carpeta){
+        $existeArchivo = file_exists($carpeta . $this->imagen);
         if($existeArchivo){
-            unlink(CARPETA_IMAGENES . $this->imagen);
+            unlink($carpeta . $this->imagen);
         }
     }
 
@@ -152,6 +152,13 @@
 
     public static function get($cantidad){
         $query = "SELECT * FROM " . static::$tabla . " LIMIT " . $cantidad;
+        $resultado = self::consultarSQL($query);
+
+        return $resultado;
+    }
+
+    public static function reversed_get($cantidad, $field){
+        $query = "SELECT * FROM " . static::$tabla . " ORDER BY " .  $field . " DESC LIMIT " . $cantidad;
         $resultado = self::consultarSQL($query);
 
         return $resultado;
