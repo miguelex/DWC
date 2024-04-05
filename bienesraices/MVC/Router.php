@@ -23,7 +23,8 @@
             // Arreglo de rutas protegidas
 
             $rutasProtegidas = ['/admin', '/propiedades/crear', '/propiedades/actualizar', '/propiedades/eliminar',
-                                '/vendedores/crear', '/vendedores/actualizar', '/vendedores/eliminar'
+                                '/vendedores/crear', '/vendedores/actualizar', '/vendedores/eliminar',
+                                '/blog/index', '/blog/crear', '/blog/actualizar', '/blog/eliminar'
                                 ];
 
             $urlActual = $_SERVER['PATH_INFO'] ?? '/';
