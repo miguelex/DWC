@@ -3,7 +3,7 @@
         'name' => 'migue/appsalon',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '6638a1e987c695bed988087e5d5fbf2fdb03765a',
+        'reference' => '974792aee4afe42d6d25a82142126fe8c6cacaa6',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'migue/appsalon' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '6638a1e987c695bed988087e5d5fbf2fdb03765a',
+            'reference' => '974792aee4afe42d6d25a82142126fe8c6cacaa6',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

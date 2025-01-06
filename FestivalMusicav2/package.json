@@ -1,0 +1,19 @@
+{
+  "name": "festivalmusicav2",
+  "version": "1.0.0",
+  "description": "Aprendiendo SASS y NPM",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass src/scss:dist/css"
+  },
+  "keywords": [
+    "SASS",
+    "NPM",
+    "Gulp"
+  ],
+  "author": "Migue Delgado",
+  "license": "ISC",
+  "devDependencies": {
+    "sass": "^1.83.1"
+  }
+}
