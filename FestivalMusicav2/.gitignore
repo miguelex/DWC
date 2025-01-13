@@ -1,2 +1,5 @@
 
 .codegpt
+build/
+node_modules/
+videos/
