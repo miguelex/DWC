@@ -1,6 +1,2 @@
-body {
-    font-family: $fuente_principal;
-    font-optical-sizing: auto;
-    font-style: normal;
-}
+@forward  'base';
 
