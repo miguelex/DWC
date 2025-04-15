@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "sass": "sass --watch src/scss:build/css",
-    "dev": "gulp dev"
+    "dev": "gulp"
   },
   "keywords": [
     "SASS",

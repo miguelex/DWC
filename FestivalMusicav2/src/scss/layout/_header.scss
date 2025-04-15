@@ -4,8 +4,15 @@
 .header {
     background-color: v.$verde;
     
+    &.fixed {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        box-shadow: .1rem .2rem .3rem #333;
+    }
 
-.contenido-header {
+    .contenido-header {
         padding: 2rem;
         @include m.tablet {
             display: flex;
@@ -36,7 +43,8 @@
         color: v.$blanco;
         font-size: 2.4rem;
 
-        &:hover {
+        &:hover,
+        &.active {
             color: v.$amarillo;
         }
     }
