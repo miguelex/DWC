@@ -15,9 +15,9 @@
                 <h1>Techno & EDM Festival</h1>
 
                 <nav class="navegacion-principal">
-                    <a href="#">Lineup</a>
-                    <a href="#">Galería</a>
-                    <a href="#">Ticket</a>
+                    <a href="#lineup">Lineup</a>
+                    <a href="#galeria">Galería</a>
+                    <a href="#boletos">Boletos</a>
                 </nav>
             </div>
         </header>
@@ -28,7 +28,7 @@
                     <p>Julio 25, Huelva</p>
                 </div>
             </div>
-            <video autoplay muted loop>
+            <video autoplay muted loop preload="auto">
                 <source src="video/dj.mp4" type="video/mp4"/>
                 <source src="video/dj.ogv" type="video/ogg"/>
                 <source src="video/dj.webm" type="video/webm"/>
@@ -36,7 +36,11 @@
         </div>
         <section class="sobre-festival">
             <div class="imagen">
-                <img src="src/img/imagen_dj.jpg" alt="Sobre Festival">
+                <picture>
+                    <source srcset="build/img/imagen_dj.avif" type="image/avif">
+                    <source srcset="build/img/imagen_dj.webp" type="image/webp">
+                    <img width= "300" height= "200" loading="lazy" src="build/img/imagen_dj.jpg" alt="Imagen DJ" >
+                </picture>
             </div>
 
             <div class="contenido-festival">
@@ -154,6 +158,57 @@
                     </ul>
                 </div> <!--.escenario-->
             </div> <!--.escenarios-contenedor -->
-        </section>    
+        </section>   
+
+        <section id="galeria" class="galeria">
+
+            <h3>Galería</h3>
+            <div class="galeria-imagenes"></div>
+        </section>
+        
+        <section id="boletos" class="contenedor-boletos">
+            <h3>Boletos</h3>
+        
+            <div class="boletos">
+                <div class="pase">
+                    <p class="pase-nombre">Pase 1 Día</p>
+                    <header class="pase-header">
+                        <p>Incluye</p>
+                    </header>
+                    <div class="pase-body">
+                        <ul>
+                            <li>Acceso a ambos escenarios</li>
+                            <li>Bebida Ilimitada</li>
+                            <li>Camisa / Pulsera del Evento</li>
+                        </ul>
+                    </div>
+                    <footer class="pase-footer">
+                        <p>$100</p>
+                    </footer>
+                </div>
+                <div class="pase">
+                    <p class="pase-nombre">Pase 2 Días</p>
+                    <header class="pase-header">
+                        <p>Incluye</p>
+                    </header>
+                    <div class="pase-body">
+                        <ul>
+                            <li>Acceso a ambos escenarios</li>
+                            <li>Bebida Ilimitada</li>
+                            <li>Camisa / Pulsera del Evento</li>
+                            <li>Acceso VIP</li>
+                        </ul>
+                    </div>
+                    <footer class="pase-footer">
+                        <p>$180</p>
+                    </footer>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>Techno & EDM Festival. Todos los derechso reservados</p>
+        </footer>
+        <script src="build/js/app.js"></script>
     </body>
 </html>

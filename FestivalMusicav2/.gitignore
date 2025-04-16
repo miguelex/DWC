@@ -1,5 +1,5 @@
 
 .codegpt
-build/
-node_modules/
-videos/
+/build
+/node_modules
+/video
