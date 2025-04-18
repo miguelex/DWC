@@ -8,7 +8,41 @@ use Classes\Email;
 
     class LoginController {
         public static function login(Router $router){
-            $router->render('auth/login');
+            $alertas = [];
+
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+               $auth = new Usuario($_POST);
+               $alertas = $auth->validarLogin();
+
+               if (empty($alertas)) {
+                   //Comprobar que existe el usuario
+                   $usuario = Usuario::where('email', $auth->email);
+
+                   if($usuario){
+                        //Verificar el apssword
+                        if($usuario->comprobarPasswordAndVerificado($auth->password)){
+                            //autenticar al usuario
+                            session_start();
+                            $_SESSION['id'] = $usuario->id;
+                            $_SESSION['nombre'] = $usuario->nombre . " " . $usuario->apellido;
+                            $_SESSION['email'] = $usuario->email;
+                            $_SESSION['login'] = true;
+                            // Redireccionar al usuario
+                            if($usuario->admin === "1"){
+                                $_SESSION['admin'] = $usuario->admin ?? null;
+                                header('Location: /admin');
+                            } else {
+                                header('Location: /cita');
+                            }
+                        }
+                   } else {
+                        Usuario::setAlerta('error', 'El usuario no encontrado');
+                   }
+               }
+            }
+            $router->render('auth/login', [
+                'alertas' => $alertas
+            ]);
         }
 
         public static function logout(){
@@ -68,5 +102,30 @@ use Classes\Email;
 
         public static function mensaje(Router $router){
             $router->render('auth/mensaje');
+        }
+
+        public static function confirmar(Router $router) {
+            $alertas = [];
+            $token = s($_GET['token']);
+            $usuario = Usuario::where('token', $token);
+    
+            if(empty($usuario)) {
+                // Mostrar mensaje de error
+                Usuario::setAlerta('error', 'Token No Válido');
+            } else {
+                // Modificar a usuario confirmado
+                $usuario->confirmado = 1;
+                $usuario->token = "";
+                $usuario->guardar();
+                Usuario::setAlerta('exito', 'Cuenta Comprobada Correctamente');
+            }
+           
+            // Obtener alertas
+            $alertas = Usuario::getAlertas();
+    
+            // Renderizar la vista
+            $router->render('auth/confirmar-cuenta', [
+                'alertas' => $alertas
+            ]);
         }
     }
