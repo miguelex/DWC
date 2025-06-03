@@ -7,6 +7,7 @@
     @include m.tablet {
         display: flex;
         justify-content: space-between;
+        align-items: center;
     }
     a {
         color: v.$blanco;
