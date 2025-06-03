@@ -2,5 +2,5 @@ node_modules
 public/build/img
 src/img
 .DS_Store
-include/.env.local
-include/.env
+includes/.env.local
+includes/.env
