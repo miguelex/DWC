@@ -19,18 +19,18 @@ class Email {
     public function enviarConfirmacion() {// Looking to send emails in production? Check out our Email API/SMTP product!
         $mail = new PHPMailer();
         $mail->isSMTP();
-        $mail->Host = 'sandbox.smtp.mailtrap.io';
+        $mail->Host = $_ENV['MAIL_HOST'];
         $mail->SMTPAuth = true;
-        $mail->Port = 2525;
-        $mail->Username = '309d55bb883dee';
-        $mail->Password = 'de7771f553b2ac';
+        $mail->Port = $_ENV['MAIL_PORT'];
+        $mail->Username = $_ENV['MAIL_USER'];
+        $mail->Password = $_ENV['MAIL_PASS'];
         $mail->setFrom('cuentas@appsalon.com', 'AppSalon');
         $mail->addAddress('cuentas@appsalon.com', 'AppSalon');
         $mail->Subject = 'Confirma tu cuenta';
         
         $contenido = "<htnml>";
         $contenido .= "<p><strong>Hola " . $this->nombre . "</strong> Has creado tu cuenta en AppSalon, solo debes confirmarla presionando el siguiente enlace</p>";
-        $contenido .= "<p>Presiona <a href='http://localhost:8000/confirmar-cuenta?token=" . $this->token . "'>aqui</a> para confirmar tu cuenta</p>";
+        $contenido .= "<p>Presiona <a href='" . $_ENV['APP_URL'] . "/confirmar-cuenta?token=" . $this->token . "'>aqui</a> para confirmar tu cuenta</p>";   
         $contenido .= "<p>Si tu no solicitaste esta cuenta, puedes ignorar el mensaje</p>";
         $contenido .= "</html>";
         
@@ -43,18 +43,18 @@ class Email {
     public function enviarInstrucciones() {
         $mail = new PHPMailer();
         $mail->isSMTP();
-        $mail->Host = 'sandbox.smtp.mailtrap.io';
+        $mail->Host = $_ENV['MAIL_HOST'];
         $mail->SMTPAuth = true;
-        $mail->Port = 2525;
-        $mail->Username = '309d55bb883dee';
-        $mail->Password = 'de7771f553b2ac';
+        $mail->Port = $_ENV['MAIL_PORT'];
+        $mail->Username = $_ENV['MAIL_USER'];
+        $mail->Password = $_ENV['MAIL_PASS'];
         $mail->setFrom('cuentas@appsalon.com', 'AppSalon');
         $mail->addAddress('cuentas@appsalon.com', 'AppSalon');
         $mail->Subject = 'Reestablece tu password';
         
         $contenido = "<htnml>";
         $contenido .= "<p><strong>Hola " . $this->nombre . "</strong> Has solicitado reestablecer tu password</p>";
-        $contenido .= "<p>Presiona <a href='http://localhost:8000/recuperar?token=" . $this->token . "'>aqui</a> para reestablecer tu password</p>";
+        $contenido .= "<p>Presiona <a href='" . $_ENV['APP_URL'] . "/recuperar?token=" . $this->token . "'>aqui</a> para reestablecer tu password</p>";
         $contenido .= "<p>Si tu no solicitaste esta cuenta, puedes ignorar el mensaje</p>";
         $contenido .= "</html>";
         
