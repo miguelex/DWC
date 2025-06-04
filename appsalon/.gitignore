@@ -1,4 +1,6 @@
-/node_modules
-/public/build/img
-/src/img
+node_modules
+public/build/img
+src/img
 .DS_Store
+includes/.env.local
+includes/.env
