@@ -1,4 +1,5 @@
 @use 'variables' as v;
+@use 'mixins' as m;
 
 html {
     font-size: 62.5%;
@@ -11,13 +12,14 @@ body {
     flex-direction: column;
     background-color: v.$negro;
     color: v.$blanco;
+    font-family: v.$fuente_principal;
+    font-size: 1.6rem;
+    @include m.tablet {
+        height: 100%;
+    }
 }
 *, *:before, *:after {
     box-sizing: inherit;
-}
-body {
-    font-family: v.$fuente_principal;
-    font-size: 1.6rem;
 }
 .contenedor {
     width: 95%;
