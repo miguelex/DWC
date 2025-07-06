@@ -63,4 +63,26 @@ class Email {
         $mail->Body = $contenido;
         $mail->send();
     }
+
+    public function confirmarCita() {
+        $mail = new PHPMailer();
+        $mail->isSMTP();
+        $mail->Host = $_ENV['MAIL_HOST'];
+        $mail->SMTPAuth = true;
+        $mail->Port = $_ENV['MAIL_PORT'];
+        $mail->Username = $_ENV['MAIL_USER'];
+        $mail->Password = $_ENV['MAIL_PASS'];
+        $mail->setFrom('cuentas@appsalon.com', 'AppSalon');
+        $mail->addAddress('cuentas@appsalon.com', 'AppSalon');
+        $mail->Subject = 'Confirmación de cita';
+        
+        $contenido = "<htnml>";
+        $contenido .= "<p><strong>Hola " . $this->nombre . "</strong> Te confirmamos que tu cita ha sido agendada exitosamente.</p>";
+        $contenido .= "</html>";
+        
+        $mail->isHTML(true);
+        $mail->CharSet = 'UTF-8';
+        $mail->Body = $contenido;
+        $mail->send();
+    }
 }
