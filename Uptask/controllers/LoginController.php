@@ -9,14 +9,42 @@ use MVC\Router;
 class LoginController {
 
     public static function login(Router $router) {
-
+        $alertas = [];
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
-            
+            $usuario = new Usuario($_POST);
+            $alertas = $usuario->validarLogin();
+
+            if(empty($alertas)) {
+                // Verificar si el usuario existe
+                $usuario = Usuario::where('email', $usuario->email);
+                
+                if(!$usuario || !$usuario->confirmado) {
+                    Usuario::setAlerta('error', 'El usuario no existe o no está confirmado');
+                } else {
+                    // Verificar el password
+                    if(password_verify($_POST['password'], $usuario->password)) {
+                        // Iniciar sesión
+                        session_start();
+                        $_SESSION['id'] = $usuario->id;
+                        $_SESSION['nombre'] = $usuario->nombre;
+                        $_SESSION['email'] = $usuario->email;
+                        $_SESSION['login'] = true;
+
+                        header('Location: /proyectos');
+                    } else {
+                        Usuario::setAlerta('error', 'Password incorrecto');
+                    }
+                
+                }
+            }
         }
+
+        $alertas = Usuario::getAlertas();
 
         // Render a la vista
         $router->render('auth/login', [
             'titulo' => 'Iniciar Sesión',
+            'alertas' => $alertas
         ]);
     }
 
@@ -65,23 +93,73 @@ class LoginController {
 
     public static function olvide(Router $router) {
 
+        $alertas = [];
+
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
-            
+            $usuario = new Usuario($_POST);
+            $alertas = $usuario->validarEmail();
+
+            if(empty($alertas)) {
+                $usuario = Usuario::where('email', $usuario->email);
+                
+                if($usuario && $usuario->confirmado) {
+                    $usuario->crearToken();
+                    unset($usuario->password2); 
+                    $usuario->guardar();
+                    $email = new Email($usuario->email, $usuario->nombre, $usuario->token);
+                    $email->enviarInstrucciones();
+                    Usuario::setAlerta('exito', 'Revisa tu email para las instrucciones');
+                } else {
+                    Usuario::setAlerta('error', 'El usuario no existe');
+                    
+                }
+            }
         }
+
+        $alertas = Usuario::getAlertas();
 
         $router->render('auth/olvide', [
             'titulo' => 'Olvidé mi contraseña',
+            'alertas' => $alertas
         ]);
     }
 
     public static function reestablecer(Router $router) {
 
-        if($_SERVER['REQUEST_METHOD'] === 'POST') {
-            
+        $token = s($_GET['token']);
+        $mostrar = true;
+
+        if(!$token) {
+            header('Location: /');
         }
+
+        $usuario = Usuario::where('token', $token);
+
+        if(empty($usuario)) {
+            Usuario::setAlerta('error', 'Token no válido');
+            $mostrar = false;
+        }
+
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $usuario->sincronizar($_POST);
+            $alertas = $usuario->validarPassword();
+
+            if(empty($alertas)) {
+                $usuario->hashPassword();
+                $usuario->token = null;
+                $resultado = $usuario->guardar();
+                if($resultado) {
+                    header('Location: /');
+                }
+            }
+        }
+
+        $alertas = Usuario::getAlertas();
 
         $router->render('auth/reestablecer', [
             'titulo' => 'Reestablecer contraseña',
+            'alertas' => $alertas,
+            'mostrar' => $mostrar
         ]);
     }
 
@@ -94,7 +172,7 @@ class LoginController {
         
         $usuario = Usuario::where('token', $token);
 
-        if(empty($usuario) || !$usuario->confirmado) {
+        if(empty($usuario)) {
             Usuario::setAlerta('error', 'Token no válido');
             $alertas = Usuario::getAlertas();
         } else {
