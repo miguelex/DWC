@@ -2,7 +2,11 @@
     <h2 class="auth__heading"><?php echo $titulo; ?></h2>
     <p class="auth__texto">Registrate en DevWebcamp</p>
 
-    <form action="" class="formulario">
+    <?php 
+        include_once __DIR__ . '/../templates/alertas.php';
+    ?>
+
+    <form action="/registro" method="post" class="formulario">
         <div class="formulario__campo">
             <label for="nombre" class="formulario__label">Nombre</label>
             <input 
@@ -11,6 +15,7 @@
                 class="formulario__input"
                 placeholder="Tu Nombre"
                 name="nombre"
+                value="<?php echo s($usuario->nombre); ?>"
             >
         </div>
         <div class="formulario__campo">
@@ -21,6 +26,7 @@
                 class="formulario__input"
                 placeholder="Tu Apellido"
                 name="apellido"
+                value="<?php echo s($usuario->apellido); ?>"
             >
         </div>
         <div class="formulario__campo">
@@ -31,6 +37,7 @@
                 class="formulario__input"
                 placeholder="Tu Email"
                 name="email"
+                value="<?php echo s($usuario->email); ?>"
             >
         </div>
         <div class="formulario__campo">
