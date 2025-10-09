@@ -1,0 +1,55 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+
+    &__thead {
+        background-color: v.$gris-oscuro;
+        color: v.$blanco;
+    }
+
+    &_th {
+        padding: 1rem;
+        text-align: left;
+    }
+
+    &__tr {
+        &:nth-child(even) {
+            background-color: v.$gris-claro;
+        }
+    }
+
+    &__td {
+        padding: 1.5rem 1rem;
+
+        &--acciones {
+            @extend .table__td;
+            display: flex;
+            justify-content: flex-end;
+            gap: 2rem;
+            align-self: center;
+        }
+    }
+
+    &__accion {
+        all: unset;
+        text-transform: uppercase;
+        font-weight: v.$bold;
+        font-size: 1.4rem;
+
+        &--editar {
+            color: v.$azul;
+        }
+
+        &--eliminar {
+            color: v.$rojo;
+        }
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+

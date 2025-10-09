@@ -368,21 +368,78 @@ h3 {
   display: flex;
   flex-direction: column;
 }
+.formulario__fieldset {
+  border: none;
+  margin-top: 1rem;
+  padding: 0;
+}
+.formulario__legend {
+  color: #64748B;
+  font-size: 2.2rem;
+  margin-bottom: 2rem;
+}
 .formulario__campo {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   margin: 1.5rem 0;
 }
+.formulario__contenedor-icono {
+  display: flex;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+.formulario__icono {
+  background-color: #1E293B;
+  width: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.formulario__icono i {
+  color: #FFFFFF;
+  font-size: 2rem;
+}
 .formulario__label {
   display: block;
   font-size: 1.8rem;
   color: rgba(26, 27, 21, 0.8);
 }
-.formulario__input {
+.formulario__input, .formulario__input--sociales {
   padding: 1rem;
   border: 1px solid rgb(176.6, 199, 221.4);
   border-radius: 0.5rem;
+}
+.formulario__input--file {
+  border: none;
+}
+.formulario__input--sociales {
+  flex: 1;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.formulario__texto {
+  margin-top: 3rem;
+}
+.formulario__imagen {
+  max-width: 20rem;
+}
+.formulario__listado {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+.formulario__listado > li {
+  background-color: #007df4;
+  padding: 1rem;
+  color: #FFFFFF;
+  font-size: 1.4rem;
+  border-radius: 0.5rem;
+  font-weight: 700;
 }
 .formulario__submit {
   background-color: #007df4;
@@ -404,6 +461,9 @@ h3 {
 .formulario__submit {
   width: auto;
   align-self: flex-start;
+}
+.formulario__submit--registrar {
+  width: 100%;
 }
 
 .acciones {
@@ -736,6 +796,7 @@ h3 {
 .dashboard__grid {
   display: flex;
   flex: 1;
+  overflow-y: auto;
 }
 .dashboard__sidebar {
   background-color: rgb(44.191011236, 60.3943820225, 86.908988764);
@@ -773,10 +834,94 @@ h3 {
 .dashboard__contenido {
   width: 100%;
   padding: 1rem 1rem 3rem 1rem;
+  overflow-y: scroll;
 }
 @media (min-width: 768px) {
   .dashboard__contenido {
     padding: 1rem 5rem 3rem 5rem;
   }
+}
+@media (min-width: 768px) {
+  .dashboard__contenedor-boton {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 5rem;
+  }
+}
+.dashboard__boton {
+  background-color: #007df4;
+  padding: 1.5rem 4rem;
+  color: #FFFFFF;
+  font-size: 1.8rem;
+  font-weight: 700;
+  border: none;
+  transition-property: background-color;
+  transition-duration: 0.3s;
+  text-align: center;
+  width: 100%;
+  display: inline-block;
+}
+.dashboard__boton:hover {
+  background-color: rgb(0, 72.7459016393, 142);
+  cursor: pointer;
+}
+.dashboard__boton {
+  text-transform: uppercase;
+  font-size: 1.4rem;
+}
+@media (min-width: 768px) {
+  .dashboard__boton {
+    width: auto;
+  }
+}
+.dashboard__contenedor, .dashboard__formulario {
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  background-color: #FFFFFF;
+  border-radius: 1rem;
+  padding: 2rem;
+}
+.dashboard__formulario {
+  width: min(95%, 80rem);
+  margin: 0 auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.table__thead {
+  background-color: #1E293B;
+  color: #FFFFFF;
+}
+.table_th {
+  padding: 1rem;
+  text-align: left;
+}
+.table__tr:nth-child(even) {
+  background-color: #F8FAFC;
+}
+.table__td, .table__td--acciones {
+  padding: 1.5rem 1rem;
+}
+.table__td--acciones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2rem;
+  align-self: center;
+}
+.table__accion {
+  all: unset;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 1.4rem;
+}
+.table__accion--editar {
+  color: #007df4;
+}
+.table__accion--eliminar {
+  color: rgb(169, 0, 0);
+}
+.table__accion:hover {
+  cursor: pointer;
 }
 /*# sourceMappingURL=app.css.map */

@@ -44,6 +44,7 @@
     &__grid {
         display: flex;
         flex: 1;
+        overflow-y: auto;
     }
 
     &__sidebar {
@@ -89,9 +90,38 @@
     &__contenido {
         width: 100%;
         padding: 1rem 1rem 3rem 1rem;
+        overflow-y: scroll;
         @include m.tablet {
             padding: 1rem 5rem 3rem 5rem;
         }
+    }
 
+    &__contenedor-boton {
+        @include m.tablet{
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 5rem;
+        }
+    }
+
+    &__boton {
+        @include m.boton(v.$azul, v.$blanco);
+        text-transform: uppercase;
+        font-size: 1.4rem;
+        @include m.tablet {
+            width: auto;
+        }
+    }
+
+    &__contenedor {
+        @include m.shadow;
+        background-color: v.$blanco;
+        border-radius: 1rem;
+        padding: 2rem;
+    }
+
+    &__formulario {
+        @extend .dashboard__contenedor;
+        @include m.contenedor-md;
     }
 }
