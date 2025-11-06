@@ -1,0 +1,96 @@
+@use 'base/mixins' as m;
+@use 'base/variables' as v;
+@use "sass:color";
+
+.agenda {
+    padding: 5rem 0;
+    @include m.contenedor;
+}
+
+.eventos {
+
+    $modificador: &;
+
+    &__heading {
+        color: v.$azul;
+        margin: 5rem 0;
+        text-align: left;
+        font-size: clamp(2rem, -0.8rem + 8vw, 6rem);
+    }
+
+    &__fecha {
+        color: v.$gris;
+        margin: 3rem 0 1rem 0;
+    }
+
+    &--workshops {
+
+        #{$modificador}__heading {
+            color: v.$secundario;
+        }
+
+        .evento__informacion {
+            background-color: v.$secundario;
+            &:hover {
+                background-color: color.adjust(v.$secundario, $lightness:-10%);
+            }
+        }
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+        color: rgba(v.$blanco, 0.5);
+    }
+}
+
+.evento {
+    &__hora {
+        font-weight: bold;
+    }
+
+    &__informacion {
+        padding: 2rem;
+        border-radius: 1rem;
+        background-color: v.$azul;
+        color: v.$blanco;
+        transition: background-color 300ms ease;
+        &:hover {
+            background-color: color.adjust(v.$azul, $lightness:-10%)
+        }
+
+    }
+
+    &__nombre {
+        font-size: 2.4rem;
+        margin: 0;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        overflow: hidden;
+    }
+
+    &__introduccion {
+        font-size: 1.6rem;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    &__autor-info {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__imagen-autor {
+        width: 5rem;
+        background-color: v.$blanco;
+        border-radius: 50%;
+    }
+
+    &__autor-nombre {
+        font-weight: bold;
+    }
+}

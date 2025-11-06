@@ -10,11 +10,12 @@
 
     &__enlace {
         color: v.$blanco;
-        font-size: 2.2rem;
+        font-size: 2rem;
         padding: 2rem;
         text-transform: uppercase;
         font-weight: v.$black;
 
+        &--actual,
         &:hover{
             color: v.$azul;
             background-color: v.$blanco;

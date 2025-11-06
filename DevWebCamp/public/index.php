@@ -4,6 +4,7 @@ require_once __DIR__ . '/../includes/app.php';
 
 use Controllers\APIEventos;
 use Controllers\APIPonentes;
+use Controllers\PaginasController;
 use MVC\Router;
 use Controllers\AuthController;
 use Controllers\EventosController;
@@ -54,13 +55,19 @@ $router->get('/admin/eventos/editar', [EventosController::class, 'editar']);
 $router->post('/admin/eventos/editar', [EventosController::class, 'editar']);
 $router->post('/admin/eventos/eliminar', [EventosController::class, 'eliminar']);
 
-$router->get('/api/eventos-horario', [APIEventos::class, 'index']);
-$router->get('/api/ponentes', [APIPonentes::class, 'index']);
-$router->get('/api/ponente', [APIEventos::class, 'ponente']);
-
 $router->get('/admin/registrados', [RegistradosController::class, 'index']);
 
 $router->get('/admin/regalos', [RegalosController::class, 'index']);
 
+// APIs
+$router->get('/api/eventos-horario', [APIEventos::class, 'index']);
+$router->get('/api/ponentes', [APIPonentes::class, 'index']);
+$router->get('/api/ponente', [APIEventos::class, 'ponente']);
+
+// Área pública
+$router->get('/', [PaginasController::class, 'index']);
+$router->get('/devwebcamp', [PaginasController::class, 'evento']);
+$router->get('/paquetes', [PaginasController::class, 'paquetes']);
+$router->get('/workshops-conferencias', [PaginasController::class, 'conferencias']);
 
 $router->comprobarRutas();
