@@ -326,6 +326,10 @@ img {
   height: auto;
 }
 
+.swal2-popup {
+  font-size: 1.5rem !important;
+}
+
 h1, h2, h3 {
   font-family: "Outfit", sans-serif;
   font-weight: 900;
@@ -599,6 +603,30 @@ h3 {
 }
 .evento__autor-nombre {
   font-weight: bold;
+}
+.evento__agregar {
+  background-color: #FFFFFF;
+  padding: 1.5rem 4rem;
+  color: #1a1b15;
+  font-size: 1.8rem;
+  font-weight: 700;
+  border: none;
+  transition-property: background-color;
+  transition-duration: 0.3s;
+  text-align: center;
+  width: 100%;
+  display: inline-block;
+}
+.evento__agregar:hover {
+  background-color: #cccccc;
+  cursor: pointer;
+}
+.evento__agregar {
+  margin-top: 1rem;
+}
+.evento__agregar:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .resumen {
@@ -1616,5 +1644,86 @@ h3 {
 .listado-ponentes__ponente--seleccionado {
   background-color: #007df4;
   color: #FFFFFF;
+}
+
+.eventos-registro {
+  width: min(95%, 140rem);
+  margin: 0 auto;
+}
+@media (min-width: 768px) {
+  .eventos-registro {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+}
+@media (min-width: 768px) {
+  .eventos-registro__listado {
+    flex: 0 0 60%;
+  }
+}
+.eventos-registro__grid {
+  display: grid;
+  gap: 3rem;
+  grid-template-columns: repeat(1, 1fr);
+}
+@media (min-width: 768px) {
+  .eventos-registro__grid {
+    display: grid;
+    gap: 3rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.eventos-registro__heading--conferencias {
+  color: #007df4;
+  white-space: nowrap;
+  font-size: clamp(2rem, -0.8rem + 10vw, 5rem);
+}
+.eventos-registro__heading--workshops {
+  color: #00c8c2;
+  white-space: nowrap;
+  font-size: clamp(2rem, -0.8rem + 10vw, 5rem);
+  margin-top: 5rem;
+}
+.eventos-registro__fecha {
+  margin: 6rem 0 3rem 0;
+}
+
+.registro {
+  background-color: #F8FAFC;
+  padding: 3rem;
+  border-radius: 1rem;
+}
+@media (min-width: 768px) {
+  .registro {
+    flex: 0 0 40%;
+    position: sticky;
+    top: 3rem;
+  }
+}
+.registro__heading {
+  margin: 0 0 3rem 0;
+}
+.registro__evento {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+}
+.registro__evento:nth-child(even) {
+  background-color: #007df4;
+  color: #FFFFFF;
+}
+.registro__nombre {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+}
+.registro__eliminar {
+  all: unset;
+  color: rgb(169, 0, 0);
+}
+.registro__eliminar:hover {
+  cursor: pointer;
 }
 /*# sourceMappingURL=app.css.map */
